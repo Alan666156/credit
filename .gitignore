@@ -1,0 +1,13 @@
+target/
+bin/
+.classpath
+.project
+.settings/
+logs
+.tomcatplugin;
+/src/main/webapp/.#webclasspath
+.#webclasspath
+/work/
+/tomcat*
+/catalina.base*
+tomcat*
