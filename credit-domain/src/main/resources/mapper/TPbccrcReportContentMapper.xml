@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdmoney.credit.framework.dao.pub.TPbccrcReportContentMapper">
+  <resultMap id="BaseResultMap" type="com.zdmoney.credit.framework.domain.TPbccrcReportContent">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="REPORT_ID" jdbcType="DECIMAL" property="reportId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zdmoney.credit.framework.domain.TPbccrcReportContent">
+    <result column="CONTENT" jdbcType="CLOB" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, REPORT_ID
+  </sql>
+  <sql id="Blob_Column_List">
+    CONTENT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from T_PBCCRC_REPORT_CONTENT
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from T_PBCCRC_REPORT_CONTENT
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zdmoney.credit.framework.domain.TPbccrcReportContent">
+  	<selectKey keyProperty="id" order="BEFORE" resultType="long">
+         select <include refid="TABLE_SEQUENCE" /> from dual
+    </selectKey>
+    insert into T_PBCCRC_REPORT_CONTENT (ID, REPORT_ID, CONTENT
+      )
+    values (#{id,jdbcType=DECIMAL}, #{reportId,jdbcType=DECIMAL}, #{content,jdbcType=CLOB}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdmoney.credit.framework.domain.TPbccrcReportContent">
+    insert into T_PBCCRC_REPORT_CONTENT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="reportId != null">
+        REPORT_ID,
+      </if>
+      <if test="content != null">
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="reportId != null">
+        #{reportId,jdbcType=DECIMAL},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdmoney.credit.framework.domain.TPbccrcReportContent">
+    update T_PBCCRC_REPORT_CONTENT
+    <set>
+      <if test="reportId != null">
+        REPORT_ID = #{reportId,jdbcType=DECIMAL},
+      </if>
+      <if test="content != null">
+        CONTENT = #{content,jdbcType=CLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zdmoney.credit.framework.domain.TPbccrcReportContent">
+    update T_PBCCRC_REPORT_CONTENT
+    set REPORT_ID = #{reportId,jdbcType=DECIMAL},
+      CONTENT = #{content,jdbcType=CLOB}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdmoney.credit.framework.domain.TPbccrcReportContent">
+    update T_PBCCRC_REPORT_CONTENT
+    set REPORT_ID = #{reportId,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  
+  
+  <sql id="TABLE_SEQUENCE">SEQ_PBCCRC_REPORT_CONTENT.nextval</sql>
+  
+  <select id="getReportContentByReportId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+     select 
+     <include refid="Base_Column_List" />,
+     <include refid="Blob_Column_List" />
+     from T_PBCCRC_REPORT_CONTENT
+     where report_id = #{reportId,jdbcType=DECIMAL}
+  </select>
+</mapper>

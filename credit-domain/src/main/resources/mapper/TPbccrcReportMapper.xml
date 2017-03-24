@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdmoney.credit.framework.dao.pub.TPbccrcReportMapper" >
+  <resultMap id="BaseResultMap" type="com.zdmoney.credit.framework.domain.TPbccrcReport" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CERT_TYPE" property="certType" jdbcType="VARCHAR" />
+    <result column="CERT_NO" property="certNo" jdbcType="VARCHAR" />
+    <result column="QUERY_TIME" property="queryTime" jdbcType="TIMESTAMP" />
+    <result column="REPORT_TIME" property="reportTime" jdbcType="TIMESTAMP" />
+    <result column="MARITAL_STATUS" property="maritalStatus" jdbcType="VARCHAR" />
+    <result column="REPORT_NO" property="reportNo" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="CREDIT_RECORD_DESCRIPTION" property="creditRecordDescription" jdbcType="VARCHAR" />
+    <result column="QUERY_RECORD_DESCRIPTION" property="queryRecordDescription" jdbcType="VARCHAR" />
+    <result column="COMMON_RECORD_DESCRIPTION" property="commonRecordDescription" jdbcType="VARCHAR" />
+    <result column="COMMON_RECORD_DETAIL" property="commonRecordDetail" jdbcType="VARCHAR" />
+    <result column="CREDIT_RECORD_SUMMARY" property="creditRecordSummary" jdbcType="VARCHAR" />
+    <result column="CREDIT_CARD_TOTAL" property="creditCardTotal" jdbcType="DECIMAL" />
+    <result column="CREDIT_CARD_ACTIVE" property="creditCardActive" jdbcType="DECIMAL" />
+    <result column="CREDIT_CARD_OVERDUE" property="creditCardOverdue" jdbcType="DECIMAL" />
+    <result column="CREDIT_CARD_SERIOUS_OVERDUE" property="creditCardSeriousOverdue" jdbcType="DECIMAL" />
+    <result column="CREDIT_CARD_GUARANTEE" property="creditCardGuarantee" jdbcType="DECIMAL" />
+    <result column="HOUSING_LOAN_TOTAL" property="housingLoanTotal" jdbcType="DECIMAL" />
+    <result column="HOUSING_LOAN_ACTIVE" property="housingLoanActive" jdbcType="DECIMAL" />
+    <result column="HOUSING_LOAN_OVERDUE" property="housingLoanOverdue" jdbcType="DECIMAL" />
+    <result column="HOUSING_LOAN_SERIOUS_OVERDUE" property="housingLoanSeriousOverdue" jdbcType="DECIMAL" />
+    <result column="HOUSING_LOAN_GUARANTEE" property="housingLoanGuarantee" jdbcType="DECIMAL" />
+    <result column="OTHER_LOAN_TOTAL" property="otherLoanTotal" jdbcType="DECIMAL" />
+    <result column="OTHER_LOAN_ACTIVE" property="otherLoanActive" jdbcType="DECIMAL" />
+    <result column="OTHER_LOAN_OVERDUE" property="otherLoanOverdue" jdbcType="DECIMAL" />
+    <result column="OTHER_LOAN_SERIOUS_OVERDUE" property="otherLoanSeriousOverdue" jdbcType="DECIMAL" />
+    <result column="OTHER_LOAN_GUARANTEE" property="otherLoanGuarantee" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATOR_ID" property="creatorId" jdbcType="VARCHAR" />
+    <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="MODIFIER_ID" property="modifierId" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_ID_CARD" property="customerIdCard" jdbcType="VARCHAR" />
+    <result column="ERROR_MSG" property="errorMsg" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_NAME" property="customerName" jdbcType="VARCHAR" />
+    <result column="ASSET_TOTAL" property="assetTotal" jdbcType="DECIMAL" />
+    <result column="REPAYMENT_TOTAL" property="repaymentTotal" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME, CERT_TYPE, CERT_NO, QUERY_TIME, REPORT_TIME, MARITAL_STATUS, REPORT_NO, 
+    DESCRIPTION, CREDIT_RECORD_DESCRIPTION, QUERY_RECORD_DESCRIPTION, COMMON_RECORD_DESCRIPTION, 
+    COMMON_RECORD_DETAIL, CREDIT_RECORD_SUMMARY, CREDIT_CARD_TOTAL, CREDIT_CARD_ACTIVE, 
+    CREDIT_CARD_OVERDUE, CREDIT_CARD_SERIOUS_OVERDUE, CREDIT_CARD_GUARANTEE, HOUSING_LOAN_TOTAL, 
+    HOUSING_LOAN_ACTIVE, HOUSING_LOAN_OVERDUE, HOUSING_LOAN_SERIOUS_OVERDUE, HOUSING_LOAN_GUARANTEE, 
+    OTHER_LOAN_TOTAL, OTHER_LOAN_ACTIVE, OTHER_LOAN_OVERDUE, OTHER_LOAN_SERIOUS_OVERDUE, 
+    OTHER_LOAN_GUARANTEE, CREATE_TIME, CREATOR_ID, MODIFY_TIME, MODIFIER_ID, CUSTOMER_ID_CARD, 
+    ERROR_MSG, CUSTOMER_NAME, ASSET_TOTAL, REPAYMENT_TOTAL
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PBCCRC_REPORT
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from T_PBCCRC_REPORT
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zdmoney.credit.framework.domain.TPbccrcReport" >
+  	<selectKey keyProperty="id" order="BEFORE" resultType="long">
+         select <include refid="TABLE_SEQUENCE" /> from dual
+    </selectKey>
+    insert into T_PBCCRC_REPORT (ID, NAME, CERT_TYPE, 
+      CERT_NO, QUERY_TIME, REPORT_TIME, 
+      MARITAL_STATUS, REPORT_NO, DESCRIPTION, 
+      CREDIT_RECORD_DESCRIPTION, QUERY_RECORD_DESCRIPTION, 
+      COMMON_RECORD_DESCRIPTION, COMMON_RECORD_DETAIL, 
+      CREDIT_RECORD_SUMMARY, CREDIT_CARD_TOTAL, CREDIT_CARD_ACTIVE, 
+      CREDIT_CARD_OVERDUE, CREDIT_CARD_SERIOUS_OVERDUE, 
+      CREDIT_CARD_GUARANTEE, HOUSING_LOAN_TOTAL, 
+      HOUSING_LOAN_ACTIVE, HOUSING_LOAN_OVERDUE, 
+      HOUSING_LOAN_SERIOUS_OVERDUE, HOUSING_LOAN_GUARANTEE, 
+      OTHER_LOAN_TOTAL, OTHER_LOAN_ACTIVE, OTHER_LOAN_OVERDUE, 
+      OTHER_LOAN_SERIOUS_OVERDUE, OTHER_LOAN_GUARANTEE, 
+      CREATE_TIME, CREATOR_ID, MODIFY_TIME, 
+      MODIFIER_ID, CUSTOMER_ID_CARD, ERROR_MSG, 
+      CUSTOMER_NAME, ASSET_TOTAL, REPAYMENT_TOTAL
+      )
+    values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{certType,jdbcType=VARCHAR}, 
+      #{certNo,jdbcType=VARCHAR}, #{queryTime,jdbcType=TIMESTAMP}, #{reportTime,jdbcType=TIMESTAMP}, 
+      #{maritalStatus,jdbcType=VARCHAR}, #{reportNo,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{creditRecordDescription,jdbcType=VARCHAR}, #{queryRecordDescription,jdbcType=VARCHAR}, 
+      #{commonRecordDescription,jdbcType=VARCHAR}, #{commonRecordDetail,jdbcType=VARCHAR}, 
+      #{creditRecordSummary,jdbcType=VARCHAR}, #{creditCardTotal,jdbcType=DECIMAL}, #{creditCardActive,jdbcType=DECIMAL}, 
+      #{creditCardOverdue,jdbcType=DECIMAL}, #{creditCardSeriousOverdue,jdbcType=DECIMAL}, 
+      #{creditCardGuarantee,jdbcType=DECIMAL}, #{housingLoanTotal,jdbcType=DECIMAL}, 
+      #{housingLoanActive,jdbcType=DECIMAL}, #{housingLoanOverdue,jdbcType=DECIMAL}, 
+      #{housingLoanSeriousOverdue,jdbcType=DECIMAL}, #{housingLoanGuarantee,jdbcType=DECIMAL}, 
+      #{otherLoanTotal,jdbcType=DECIMAL}, #{otherLoanActive,jdbcType=DECIMAL}, #{otherLoanOverdue,jdbcType=DECIMAL}, 
+      #{otherLoanSeriousOverdue,jdbcType=DECIMAL}, #{otherLoanGuarantee,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{modifierId,jdbcType=VARCHAR}, #{customerIdCard,jdbcType=VARCHAR}, #{errorMsg,jdbcType=VARCHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{assetTotal,jdbcType=DECIMAL}, #{repaymentTotal,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdmoney.credit.framework.domain.TPbccrcReport" >
+    insert into T_PBCCRC_REPORT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="certType != null" >
+        CERT_TYPE,
+      </if>
+      <if test="certNo != null" >
+        CERT_NO,
+      </if>
+      <if test="queryTime != null" >
+        QUERY_TIME,
+      </if>
+      <if test="reportTime != null" >
+        REPORT_TIME,
+      </if>
+      <if test="maritalStatus != null" >
+        MARITAL_STATUS,
+      </if>
+      <if test="reportNo != null" >
+        REPORT_NO,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="creditRecordDescription != null" >
+        CREDIT_RECORD_DESCRIPTION,
+      </if>
+      <if test="queryRecordDescription != null" >
+        QUERY_RECORD_DESCRIPTION,
+      </if>
+      <if test="commonRecordDescription != null" >
+        COMMON_RECORD_DESCRIPTION,
+      </if>
+      <if test="commonRecordDetail != null" >
+        COMMON_RECORD_DETAIL,
+      </if>
+      <if test="creditRecordSummary != null" >
+        CREDIT_RECORD_SUMMARY,
+      </if>
+      <if test="creditCardTotal != null" >
+        CREDIT_CARD_TOTAL,
+      </if>
+      <if test="creditCardActive != null" >
+        CREDIT_CARD_ACTIVE,
+      </if>
+      <if test="creditCardOverdue != null" >
+        CREDIT_CARD_OVERDUE,
+      </if>
+      <if test="creditCardSeriousOverdue != null" >
+        CREDIT_CARD_SERIOUS_OVERDUE,
+      </if>
+      <if test="creditCardGuarantee != null" >
+        CREDIT_CARD_GUARANTEE,
+      </if>
+      <if test="housingLoanTotal != null" >
+        HOUSING_LOAN_TOTAL,
+      </if>
+      <if test="housingLoanActive != null" >
+        HOUSING_LOAN_ACTIVE,
+      </if>
+      <if test="housingLoanOverdue != null" >
+        HOUSING_LOAN_OVERDUE,
+      </if>
+      <if test="housingLoanSeriousOverdue != null" >
+        HOUSING_LOAN_SERIOUS_OVERDUE,
+      </if>
+      <if test="housingLoanGuarantee != null" >
+        HOUSING_LOAN_GUARANTEE,
+      </if>
+      <if test="otherLoanTotal != null" >
+        OTHER_LOAN_TOTAL,
+      </if>
+      <if test="otherLoanActive != null" >
+        OTHER_LOAN_ACTIVE,
+      </if>
+      <if test="otherLoanOverdue != null" >
+        OTHER_LOAN_OVERDUE,
+      </if>
+      <if test="otherLoanSeriousOverdue != null" >
+        OTHER_LOAN_SERIOUS_OVERDUE,
+      </if>
+      <if test="otherLoanGuarantee != null" >
+        OTHER_LOAN_GUARANTEE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="creatorId != null" >
+        CREATOR_ID,
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME,
+      </if>
+      <if test="modifierId != null" >
+        MODIFIER_ID,
+      </if>
+      <if test="customerIdCard != null" >
+        CUSTOMER_ID_CARD,
+      </if>
+      <if test="errorMsg != null" >
+        ERROR_MSG,
+      </if>
+      <if test="customerName != null" >
+        CUSTOMER_NAME,
+      </if>
+      <if test="assetTotal != null" >
+        ASSET_TOTAL,
+      </if>
+      <if test="repaymentTotal != null" >
+        REPAYMENT_TOTAL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="certType != null" >
+        #{certType,jdbcType=VARCHAR},
+      </if>
+      <if test="certNo != null" >
+        #{certNo,jdbcType=VARCHAR},
+      </if>
+      <if test="queryTime != null" >
+        #{queryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportTime != null" >
+        #{reportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maritalStatus != null" >
+        #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reportNo != null" >
+        #{reportNo,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="creditRecordDescription != null" >
+        #{creditRecordDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="queryRecordDescription != null" >
+        #{queryRecordDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="commonRecordDescription != null" >
+        #{commonRecordDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="commonRecordDetail != null" >
+        #{commonRecordDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="creditRecordSummary != null" >
+        #{creditRecordSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="creditCardTotal != null" >
+        #{creditCardTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="creditCardActive != null" >
+        #{creditCardActive,jdbcType=DECIMAL},
+      </if>
+      <if test="creditCardOverdue != null" >
+        #{creditCardOverdue,jdbcType=DECIMAL},
+      </if>
+      <if test="creditCardSeriousOverdue != null" >
+        #{creditCardSeriousOverdue,jdbcType=DECIMAL},
+      </if>
+      <if test="creditCardGuarantee != null" >
+        #{creditCardGuarantee,jdbcType=DECIMAL},
+      </if>
+      <if test="housingLoanTotal != null" >
+        #{housingLoanTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="housingLoanActive != null" >
+        #{housingLoanActive,jdbcType=DECIMAL},
+      </if>
+      <if test="housingLoanOverdue != null" >
+        #{housingLoanOverdue,jdbcType=DECIMAL},
+      </if>
+      <if test="housingLoanSeriousOverdue != null" >
+        #{housingLoanSeriousOverdue,jdbcType=DECIMAL},
+      </if>
+      <if test="housingLoanGuarantee != null" >
+        #{housingLoanGuarantee,jdbcType=DECIMAL},
+      </if>
+      <if test="otherLoanTotal != null" >
+        #{otherLoanTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="otherLoanActive != null" >
+        #{otherLoanActive,jdbcType=DECIMAL},
+      </if>
+      <if test="otherLoanOverdue != null" >
+        #{otherLoanOverdue,jdbcType=DECIMAL},
+      </if>
+      <if test="otherLoanSeriousOverdue != null" >
+        #{otherLoanSeriousOverdue,jdbcType=DECIMAL},
+      </if>
+      <if test="otherLoanGuarantee != null" >
+        #{otherLoanGuarantee,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifierId != null" >
+        #{modifierId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerIdCard != null" >
+        #{customerIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMsg != null" >
+        #{errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="assetTotal != null" >
+        #{assetTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentTotal != null" >
+        #{repaymentTotal,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdmoney.credit.framework.domain.TPbccrcReport" >
+    update T_PBCCRC_REPORT
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="certType != null" >
+        CERT_TYPE = #{certType,jdbcType=VARCHAR},
+      </if>
+      <if test="certNo != null" >
+        CERT_NO = #{certNo,jdbcType=VARCHAR},
+      </if>
+      <if test="queryTime != null" >
+        QUERY_TIME = #{queryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportTime != null" >
+        REPORT_TIME = #{reportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maritalStatus != null" >
+        MARITAL_STATUS = #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reportNo != null" >
+        REPORT_NO = #{reportNo,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="creditRecordDescription != null" >
+        CREDIT_RECORD_DESCRIPTION = #{creditRecordDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="queryRecordDescription != null" >
+        QUERY_RECORD_DESCRIPTION = #{queryRecordDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="commonRecordDescription != null" >
+        COMMON_RECORD_DESCRIPTION = #{commonRecordDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="commonRecordDetail != null" >
+        COMMON_RECORD_DETAIL = #{commonRecordDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="creditRecordSummary != null" >
+        CREDIT_RECORD_SUMMARY = #{creditRecordSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="creditCardTotal != null" >
+        CREDIT_CARD_TOTAL = #{creditCardTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="creditCardActive != null" >
+        CREDIT_CARD_ACTIVE = #{creditCardActive,jdbcType=DECIMAL},
+      </if>
+      <if test="creditCardOverdue != null" >
+        CREDIT_CARD_OVERDUE = #{creditCardOverdue,jdbcType=DECIMAL},
+      </if>
+      <if test="creditCardSeriousOverdue != null" >
+        CREDIT_CARD_SERIOUS_OVERDUE = #{creditCardSeriousOverdue,jdbcType=DECIMAL},
+      </if>
+      <if test="creditCardGuarantee != null" >
+        CREDIT_CARD_GUARANTEE = #{creditCardGuarantee,jdbcType=DECIMAL},
+      </if>
+      <if test="housingLoanTotal != null" >
+        HOUSING_LOAN_TOTAL = #{housingLoanTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="housingLoanActive != null" >
+        HOUSING_LOAN_ACTIVE = #{housingLoanActive,jdbcType=DECIMAL},
+      </if>
+      <if test="housingLoanOverdue != null" >
+        HOUSING_LOAN_OVERDUE = #{housingLoanOverdue,jdbcType=DECIMAL},
+      </if>
+      <if test="housingLoanSeriousOverdue != null" >
+        HOUSING_LOAN_SERIOUS_OVERDUE = #{housingLoanSeriousOverdue,jdbcType=DECIMAL},
+      </if>
+      <if test="housingLoanGuarantee != null" >
+        HOUSING_LOAN_GUARANTEE = #{housingLoanGuarantee,jdbcType=DECIMAL},
+      </if>
+      <if test="otherLoanTotal != null" >
+        OTHER_LOAN_TOTAL = #{otherLoanTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="otherLoanActive != null" >
+        OTHER_LOAN_ACTIVE = #{otherLoanActive,jdbcType=DECIMAL},
+      </if>
+      <if test="otherLoanOverdue != null" >
+        OTHER_LOAN_OVERDUE = #{otherLoanOverdue,jdbcType=DECIMAL},
+      </if>
+      <if test="otherLoanSeriousOverdue != null" >
+        OTHER_LOAN_SERIOUS_OVERDUE = #{otherLoanSeriousOverdue,jdbcType=DECIMAL},
+      </if>
+      <if test="otherLoanGuarantee != null" >
+        OTHER_LOAN_GUARANTEE = #{otherLoanGuarantee,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        CREATOR_ID = #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifierId != null" >
+        MODIFIER_ID = #{modifierId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerIdCard != null" >
+        CUSTOMER_ID_CARD = #{customerIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMsg != null" >
+        ERROR_MSG = #{errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="assetTotal != null" >
+        ASSET_TOTAL = #{assetTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentTotal != null" >
+        REPAYMENT_TOTAL = #{repaymentTotal,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdmoney.credit.framework.domain.TPbccrcReport" >
+    update T_PBCCRC_REPORT
+    set NAME = #{name,jdbcType=VARCHAR},
+      CERT_TYPE = #{certType,jdbcType=VARCHAR},
+      CERT_NO = #{certNo,jdbcType=VARCHAR},
+      QUERY_TIME = #{queryTime,jdbcType=TIMESTAMP},
+      REPORT_TIME = #{reportTime,jdbcType=TIMESTAMP},
+      MARITAL_STATUS = #{maritalStatus,jdbcType=VARCHAR},
+      REPORT_NO = #{reportNo,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      CREDIT_RECORD_DESCRIPTION = #{creditRecordDescription,jdbcType=VARCHAR},
+      QUERY_RECORD_DESCRIPTION = #{queryRecordDescription,jdbcType=VARCHAR},
+      COMMON_RECORD_DESCRIPTION = #{commonRecordDescription,jdbcType=VARCHAR},
+      COMMON_RECORD_DETAIL = #{commonRecordDetail,jdbcType=VARCHAR},
+      CREDIT_RECORD_SUMMARY = #{creditRecordSummary,jdbcType=VARCHAR},
+      CREDIT_CARD_TOTAL = #{creditCardTotal,jdbcType=DECIMAL},
+      CREDIT_CARD_ACTIVE = #{creditCardActive,jdbcType=DECIMAL},
+      CREDIT_CARD_OVERDUE = #{creditCardOverdue,jdbcType=DECIMAL},
+      CREDIT_CARD_SERIOUS_OVERDUE = #{creditCardSeriousOverdue,jdbcType=DECIMAL},
+      CREDIT_CARD_GUARANTEE = #{creditCardGuarantee,jdbcType=DECIMAL},
+      HOUSING_LOAN_TOTAL = #{housingLoanTotal,jdbcType=DECIMAL},
+      HOUSING_LOAN_ACTIVE = #{housingLoanActive,jdbcType=DECIMAL},
+      HOUSING_LOAN_OVERDUE = #{housingLoanOverdue,jdbcType=DECIMAL},
+      HOUSING_LOAN_SERIOUS_OVERDUE = #{housingLoanSeriousOverdue,jdbcType=DECIMAL},
+      HOUSING_LOAN_GUARANTEE = #{housingLoanGuarantee,jdbcType=DECIMAL},
+      OTHER_LOAN_TOTAL = #{otherLoanTotal,jdbcType=DECIMAL},
+      OTHER_LOAN_ACTIVE = #{otherLoanActive,jdbcType=DECIMAL},
+      OTHER_LOAN_OVERDUE = #{otherLoanOverdue,jdbcType=DECIMAL},
+      OTHER_LOAN_SERIOUS_OVERDUE = #{otherLoanSeriousOverdue,jdbcType=DECIMAL},
+      OTHER_LOAN_GUARANTEE = #{otherLoanGuarantee,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATOR_ID = #{creatorId,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      MODIFIER_ID = #{modifierId,jdbcType=VARCHAR},
+      CUSTOMER_ID_CARD = #{customerIdCard,jdbcType=VARCHAR},
+      ERROR_MSG = #{errorMsg,jdbcType=VARCHAR},
+      CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      ASSET_TOTAL = #{assetTotal,jdbcType=DECIMAL},
+      REPAYMENT_TOTAL = #{repaymentTotal,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  
+  <sql id="TABLE_SEQUENCE">SEQ_PBCCRC_REPORT.nextval</sql>
+  
+  <select id="getReportByCustNameAndIdCard" resultMap="BaseResultMap" parameterType="java.util.Map" >
+     select <include refid="Base_Column_List" />  from (
+     select 
+    <include refid="Base_Column_List" />
+     from T_PBCCRC_REPORT
+     where 1=1
+	     <if test="customerName != null" >
+	           AND CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR}
+	     </if>
+	     <if test="customerIdCard != null" >
+	        AND CUSTOMER_ID_CARD = #{customerIdCard,jdbcType=VARCHAR}
+	     </if>
+	   order by create_time desc
+	   )
+	   where rownum=1
+  </select>
+  
+  <select id="findAll" resultMap="BaseResultMap" parameterType="java.util.Map" >
+     select 
+    <include refid="Base_Column_List" />
+     from T_PBCCRC_REPORT
+     where 1=1
+     <if test="customerName != null" >
+        AND CUSTOMER_NAME like #{customerName,jdbcType=VARCHAR}
+     </if>
+     <if test="customerIdCard != null" >
+        AND CUSTOMER_ID_CARD like #{customerIdCard,jdbcType=VARCHAR}
+     </if>
+     <if test="beginDate!=null and endDate!=null">
+     	 AND CREATE_TIME BETWEEN #{beginDate,jdbcType=TIMESTAMP} AND #{endDate,jdbcType=TIMESTAMP}
+     </if>
+     order by create_time desc
+	 
+  </select>
+</mapper>
+
+

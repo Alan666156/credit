@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdmoney.credit.framework.dao.pub.TPbccrcLoanRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.zdmoney.credit.framework.domain.TPbccrcLoanRecord" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="REPORT_ID" property="reportId" jdbcType="DECIMAL" />
+    <result column="GRANT_MONEY_DATE" property="grantMoneyDate" jdbcType="TIMESTAMP" />
+    <result column="GRANT_ORGANIZATIONS" property="grantOrganizations" jdbcType="VARCHAR" />
+    <result column="GRANT_MONEY" property="grantMoney" jdbcType="DECIMAL" />
+    <result column="CURRENCY_TYPE" property="currencyType" jdbcType="VARCHAR" />
+    <result column="DEADLINE_DATE" property="deadlineDate" jdbcType="TIMESTAMP" />
+    <result column="EXPIRE_DATE" property="expireDate" jdbcType="TIMESTAMP" />
+    <result column="SETTLEMENT_DATE" property="settlementDate" jdbcType="TIMESTAMP" />
+    <result column="OVERDUE_MONEY" property="overdueMoney" jdbcType="DECIMAL" />
+    <result column="OVERDUE_MONTH" property="overdueMonth" jdbcType="DECIMAL" />
+    <result column="OVERDUE_MONTH_NUM" property="overdueMonthNum" jdbcType="DECIMAL" />
+    <result column="SETTLEMENT" property="settlement" jdbcType="CHAR" />
+    <result column="BAD" property="bad" jdbcType="CHAR" />
+    <result column="TYPE" property="type" jdbcType="CHAR" />
+    <result column="CREDIT_TYPE" property="creditType" jdbcType="VARCHAR" />
+    <result column="RECORD_NUM" property="recordNum" jdbcType="DECIMAL" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="BALANCE" property="balance" jdbcType="DECIMAL" />
+    <result column="LOAN_TYPE" property="loanType" jdbcType="VARCHAR" />
+    <result column="ORG_TYPE" property="orgType" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, REPORT_ID, GRANT_MONEY_DATE, GRANT_ORGANIZATIONS, GRANT_MONEY, CURRENCY_TYPE, DEADLINE_DATE, 
+    EXPIRE_DATE, SETTLEMENT_DATE, OVERDUE_MONEY, OVERDUE_MONTH, OVERDUE_MONTH_NUM, SETTLEMENT, BAD, TYPE, 
+    CREDIT_TYPE, RECORD_NUM,CREATE_DATE,CREATOR,BALANCE,LOAN_TYPE,ORG_TYPE,CONTENT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PBCCRC_LOAN_RECORD
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from T_PBCCRC_LOAN_RECORD
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zdmoney.credit.framework.domain.TPbccrcLoanRecord" >
+  	<selectKey keyProperty="id" order="BEFORE" resultType="long">
+         select SEQ_LOAN_RECORD.nextval from dual
+    </selectKey>
+    insert into T_PBCCRC_LOAN_RECORD (ID, REPORT_ID, GRANT_MONEY_DATE, 
+      GRANT_ORGANIZATIONS, GRANT_MONEY, CURRENCY_TYPE, DEADLINE_DATE, EXPIRE_DATE, SETTLEMENT_DATE, OVERDUE_MONEY, OVERDUE_MONTH, 
+      OVERDUE_MONTH_NUM, SETTLEMENT,BAD, TYPE, CREDIT_TYPE,RECORD_NUM,CREATE_DATE,CREATOR,BALANCE,LOAN_TYPE,ORG_TYPE,CONTENT
+      )
+    values (#{id,jdbcType=DECIMAL}, #{reportId,jdbcType=DECIMAL}, #{grantMoneyDate,jdbcType=TIMESTAMP}, 
+      #{grantOrganizations,jdbcType=VARCHAR}, #{grantMoney,jdbcType=DECIMAL}, #{currencyType,jdbcType=VARCHAR}, 
+      #{deadlineDate,jdbcType=TIMESTAMP}, #{expireDate,jdbcType=TIMESTAMP}, #{settlementDate,jdbcType=TIMESTAMP}, 
+      #{overdueMoney,jdbcType=DECIMAL}, #{overdueMonth,jdbcType=DECIMAL}, #{overdueMonthNum,jdbcType=DECIMAL}, 
+      #{settlement,jdbcType=CHAR}, #{bad,jdbcType=CHAR}, #{type,jdbcType=CHAR}, #{creditType,jdbcType=VARCHAR},
+      #{recordNum,jdbcType=DECIMAL},#{createDate,jdbcType=TIMESTAMP},#{creator,jdbcType=VARCHAR},#{balance,jdbcType=VARCHAR},
+      #{loanType,jdbcType=VARCHAR},#{orgType,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdmoney.credit.framework.domain.TPbccrcLoanRecord" >
+    insert into T_PBCCRC_LOAN_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="reportId != null" >
+        REPORT_ID,
+      </if>
+      <if test="grantMoneyDate != null" >
+        GRANT_MONEY_DATE,
+      </if>
+      <if test="grantOrganizations != null" >
+        GRANT_ORGANIZATIONS,
+      </if>
+      <if test="grantMoney != null" >
+        GRANT_MONEY,
+      </if>
+      <if test="currencyType != null" >
+        CURRENCY_TYPE,
+      </if>
+      <if test="deadlineDate != null" >
+        DEADLINE_DATE,
+      </if>
+      <if test="expireDate != null" >
+        EXPIRE_DATE,
+      </if>
+      <if test="settlementDate != null" >
+        SETTLEMENT_DATE,
+      </if>
+      <if test="overdueMoney != null" >
+        OVERDUE_MONEY,
+      </if>
+      <if test="overdueMonth != null" >
+        OVERDUE_MONTH,
+      </if>
+      <if test="overdueMonthNum != null" >
+        OVERDUE_MONTH_NUM,
+      </if>
+      <if test="settlement != null" >
+        SETTLEMENT,
+      </if>
+      <if test="bad != null" >
+        BAD,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="creditType != null" >
+        CREDIT_TYPE,
+      </if>
+      <if test="recordNum != null" >
+        RECORD_NUM,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="balance != null" >
+        BALANCE,
+      </if>
+      <if test="loanType != null" >
+        LOAN_TYPE,
+      </if>
+      <if test="orgType != null" >
+        ORG_TYPE,
+      </if>
+      <if test="content != null" >
+        CONTENT
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="reportId != null" >
+        #{reportId,jdbcType=DECIMAL},
+      </if>
+      <if test="grantMoneyDate != null" >
+        #{grantMoneyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="grantOrganizations != null" >
+        #{grantOrganizations,jdbcType=VARCHAR},
+      </if>
+      <if test="grantMoney != null" >
+        #{grantMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="currencyType != null" >
+        #{currencyType,jdbcType=VARCHAR},
+      </if>
+      <if test="deadlineDate != null" >
+        #{deadlineDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireDate != null" >
+        #{expireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settlementDate != null" >
+        #{settlementDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overdueMoney != null" >
+        #{overdueMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueMonth != null" >
+        #{overdueMonth,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueMonthNum != null" >
+        #{overdueMonthNum,jdbcType=DECIMAL},
+      </if>
+      <if test="settlement != null" >
+        #{settlement,jdbcType=CHAR},
+      </if>
+      <if test="bad != null" >
+        #{bad,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="creditType != null" >
+        #{creditType,jdbcType=VARCHAR},
+      </if>
+      <if test="recordNum != null" >
+        #{recordNum,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+       #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="loanType != null" >
+        #{loanType,jdbcType=VARCHAR}
+      </if>
+      <if test="orgType != null" >
+        #{orgType,jdbcType=VARCHAR}
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdmoney.credit.framework.domain.TPbccrcLoanRecord" >
+    update T_PBCCRC_LOAN_RECORD
+    <set >
+      <if test="reportId != null" >
+        REPORT_ID = #{reportId,jdbcType=DECIMAL},
+      </if>
+      <if test="grantMoneyDate != null" >
+        GRANT_MONEY_DATE = #{grantMoneyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="grantOrganizations != null" >
+        GRANT_ORGANIZATIONS = #{grantOrganizations,jdbcType=VARCHAR},
+      </if>
+      <if test="grantMoney != null" >
+        GRANT_MONEY = #{grantMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="currencyType != null" >
+        CURRENCY_TYPE = #{currencyType,jdbcType=VARCHAR},
+      </if>
+      <if test="deadlineDate != null" >
+        DEADLINE_DATE = #{deadlineDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireDate != null" >
+        EXPIRE_DATE = #{expireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settlementDate != null" >
+        SETTLEMENT_DATE = #{settlementDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overdueMoney != null" >
+        OVERDUE_MONEY = #{overdueMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueMonth != null" >
+        OVERDUE_MONTH = #{overdueMonth,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueMonthNum != null" >
+        OVERDUE_MONTH_NUM = #{overdueMonthNum,jdbcType=DECIMAL},
+      </if>
+      <if test="settlement != null" >
+        SETTLEMENT = #{settlement,jdbcType=CHAR},
+      </if>
+      <if test="bad != null" >
+        BAD = #{bad,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="creditType != null" >
+        CREDIT_TYPE = #{creditType,jdbcType=VARCHAR},
+      </if>
+      <if test="recordNum != null" >
+        RECORD_NUM = #{recordNum,jdbcType=DECIMAL},
+      </if>
+       <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+       BALANCE = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="loanType != null" >
+        LOAN_TYPE = #{loanType,jdbcType=VARCHAR}
+      </if>
+      <if test="orgType != null" >
+        ORG_TYPE = #{orgType,jdbcType=VARCHAR}
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdmoney.credit.framework.domain.TPbccrcLoanRecord" >
+    update T_PBCCRC_LOAN_RECORD
+    set REPORT_ID = #{reportId,jdbcType=DECIMAL},
+      GRANT_MONEY_DATE = #{grantMoneyDate,jdbcType=TIMESTAMP},
+      GRANT_ORGANIZATIONS = #{grantOrganizations,jdbcType=VARCHAR},
+      GRANT_MONEY = #{grantMoney,jdbcType=DECIMAL},
+      CURRENCY_TYPE = #{currencyType,jdbcType=VARCHAR},
+      DEADLINE_DATE = #{deadlineDate,jdbcType=TIMESTAMP},
+      EXPIRE_DATE = #{expireDate,jdbcType=TIMESTAMP},
+      SETTLEMENT_DATE = #{settlementDate,jdbcType=TIMESTAMP},
+      OVERDUE_MONEY = #{overdueMoney,jdbcType=DECIMAL},
+      OVERDUE_MONTH = #{overdueMonth,jdbcType=DECIMAL},
+      OVERDUE_MONTH_NUM = #{overdueMonthNum,jdbcType=DECIMAL},
+      SETTLEMENT = #{settlement,jdbcType=CHAR},
+      BAD = #{bad,jdbcType=CHAR},
+      TYPE = #{type,jdbcType=CHAR},
+      CREDIT_TYPE = #{creditType,jdbcType=VARCHAR},
+      RECORD_NUM = #{recordNum,jdbcType=DECIMAL},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      BALANCE = #{balance,jdbcType=DECIMAL},
+      LOAN_TYPE = #{loanType,jdbcType=VARCHAR},
+      ORG_TYPE = #{orgType,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 查询条件 -->
+  <sql id="creditLoanConditions">
+      <if test="reportId != null" >
+        AND REPORT_ID = #{reportId,jdbcType=DECIMAL},
+      </if>
+      <if test="grantMoneyDate != null" >
+        AND GRANT_MONEY_DATE = #{grantMoneyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="grantOrganizations != null" >
+        AND GRANT_ORGANIZATIONS = #{grantOrganizations,jdbcType=VARCHAR},
+      </if>
+      <if test="grantMoney != null" >
+        AND GRANT_MONEY = #{grantMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="currencyType != null" >
+        AND CURRENCY_TYPE = #{currencyType,jdbcType=VARCHAR},
+      </if>
+      <if test="deadlineDate != null" >
+        AND DEADLINE_DATE = #{deadlineDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireDate != null" >
+        AND EXPIRE_DATE = #{expireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settlementDate != null" >
+        AND SETTLEMENT_DATE = #{settlementDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overdueMoney != null" >
+        AND OVERDUE_MONEY = #{overdueMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueMonth != null" >
+        AND OVERDUE_MONTH = #{overdueMonth,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueMonthNum != null" >
+        AND OVERDUE_MONTH_NUM = #{overdueMonthNum,jdbcType=DECIMAL},
+      </if>
+      <if test="settlement != null" >
+        AND SETTLEMENT = #{settlement,jdbcType=CHAR},
+      </if>
+      <if test="bad != null" >
+        AND BAD = #{bad,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        AND TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="creditType != null" >
+        AND CREDIT_TYPE = #{creditType,jdbcType=VARCHAR},
+      </if>
+      <if test="recordNum != null" >
+        AND RECORD_NUM = #{recordNum,jdbcType=DECIMAL},
+      </if>
+       <if test="createDate != null" >
+        AND CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        AND CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        AND BALANCE = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        AND BALANCE = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="loanType != null" >
+        AND LOAN_TYPE = #{loanType,jdbcType=VARCHAR},
+      </if>
+      <if test="orgType != null" >
+        ORG_TYPE = #{orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR}
+      </if>
+  </sql>
+  <!-- 根据报告id查询 -->
+   <select id="findByReportId" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from T_PBCCRC_LOAN_RECORD
+    where REPORT_ID = #{reportId,jdbcType=DECIMAL}
+  </select>
+  <!-- 查询用户贷款信息 -->
+  <select id="findcreditLoanInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from T_PBCCRC_LOAN_RECORD
+    where REPORT_ID = #{reportId,jdbcType=DECIMAL}
+    <if test="creditType!=null and creditType.size() > 0">
+        and credit_type in
+        <foreach item="item" index="index" collection="creditType" open="(" separator="," close=")">  
+             #{item}
+        </foreach>
+    </if>
+    ORDER BY ID ASC
+  </select>
+  <!-- 查询非农贷款未结清/结清时间小于半年，不是呆账信息 -->
+  <select id="findcreditLoan" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from T_PBCCRC_LOAN_RECORD
+    where REPORT_ID = #{reportId,jdbcType=DECIMAL}
+    and credit_type!='农户贷款'
+    and bad='1'
+    <![CDATA[ 
+    and (settlement='1'
+    or settlement='0' and trunc(add_months(settlement_date,6)) > trunc(#{deadlineDate,jdbcType=TIMESTAMP}))
+    ]]>
+  </select>
+  
+  <!-- 根据编号查询 -->
+  <select id="findByRecordNum" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_PBCCRC_LOAN_RECORD
+    where REPORT_ID = #{reportId,jdbcType=DECIMAL}
+	<if test="recordNums!=null and recordNums.size() > 0">
+        AND RECORD_NUM in
+        <foreach item="item" index="index" collection="recordNums" open="(" separator="," close=")">  
+             #{item}
+        </foreach>
+    </if>
+    <if test="loanType != null" >
+        AND LOAN_TYPE = #{loanType,jdbcType=VARCHAR}
+    </if>  
+    ORDER BY ID ASC
+  </select>
+  
+  <!-- 当前账户截止日期后有没有发放新的非农贷款-->
+   <select id="findcreditNewLoan" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_PBCCRC_LOAN_RECORD
+    where REPORT_ID = #{reportId,jdbcType=DECIMAL}
+    and credit_type!='农户贷款'
+    <![CDATA[
+    and (GRANT_MONEY_DATE > #{deadlineDate,jdbcType=TIMESTAMP} or to_char(GRANT_MONEY_DATE, 'yyyy-mm')=to_char(#{deadlineDate,jdbcType=TIMESTAMP}, 'yyyy-mm'))
+    ]]>
+  </select>
+  <!-- 当前账户截止日期后有没有发放新的贷款-->
+   <select id="findcreditNewLoanInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_PBCCRC_LOAN_RECORD
+    where REPORT_ID = #{reportId,jdbcType=DECIMAL}
+    <![CDATA[
+    and (GRANT_MONEY_DATE > #{deadlineDate,jdbcType=TIMESTAMP} or to_char(GRANT_MONEY_DATE, 'yyyy-mm')=to_char(#{deadlineDate,jdbcType=TIMESTAMP}, 'yyyy-mm'))
+    ]]>
+  </select>
+  
+  <!-- 未超过90天逾期月份数统计 -->
+  <select id="overdueMonthCount" parameterType="java.util.Map" resultType="java.lang.Long">
+    select
+    nvl(sum(t.overdue_month),0)
+    from T_PBCCRC_LOAN_RECORD t
+    where REPORT_ID = #{reportId,jdbcType=DECIMAL}
+    AND TYPE='0'
+  </select> 
+  <!-- 超过90天逾期月份数统计 -->
+  <select id="overdueMonthNumCount" parameterType="java.util.Map" resultType="java.lang.Long">
+    select 
+    nvl(sum(t.overdue_month_num),0)
+    from T_PBCCRC_LOAN_RECORD t
+    where REPORT_ID = #{reportId,jdbcType=DECIMAL}
+    AND TYPE='0'
+  </select>
+	<!-- 查询贷款信息 -->
+	<select id="findLoanLimitInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_PBCCRC_LOAN_RECORD t
+    <![CDATA[
+	    WHERE
+	    REPORT_ID = #{reportId,jdbcType=DECIMAL}
+	    and t.SETTLEMENT=1
+	    and (
+		    t.CREDIT_TYPE='个人信用贷款' or 
+		    t.ORG_TYPE in('003','004') or 
+		    (t.ORG_TYPE in('001','002') and t.CREDIT_TYPE not in('个人住房贷款','个人汽车贷款','农户贷款','个人经营性贷款'))
+		    and(
+		      t.ORG_TYPE in('001','002') 
+		      and t.credit_type in('其他贷款','个人消费贷款')
+		      and t.GRANT_MONEY <= 150000 
+		      and round(months_between(trunc(EXPIRE_DATE), trunc(GRANT_MONEY_DATE))) <= 36
+		    )
+	    )
+	    order by RECORD_NUM
+    ]]>
+  </select>
+</mapper>

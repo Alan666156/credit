@@ -1,16 +1,16 @@
 package com.credit;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Created by fuhongxing on 16/11/27.
  */
-@Configuration
-@EnableAutoConfiguration
+//@Configuration
+//@EnableAutoConfiguration
+@SpringBootApplication
+@MapperScan("com.credit.dao")
 public class CreditApplication {
 
     public static void main(String[] args) throws Exception {

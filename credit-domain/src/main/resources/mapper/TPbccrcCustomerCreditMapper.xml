@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdmoney.credit.framework.dao.pub.TPbccrcCustomerCreditMapper" >
+  <resultMap id="BaseResultMap" type="com.zdmoney.credit.framework.domain.TPbccrcCustomerCredit" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="REPORT_ID" property="reportId" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="RESULT" property="result" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="CHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="CREDIT_LIMIT_MONEY" property="creditLimitMoney" jdbcType="DECIMAL" />
+    <result column="ALREADY_USE_MONEY" property="alreadyUseMoney" jdbcType="DECIMAL" />
+    <result column="THREE_MONTH_QUERY_COUNT" property="threeMonthQueryCount" jdbcType="DECIMAL" />
+    <result column="ONE_MONTH_QUERY_COUNT" property="oneMonthQueryCount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, REPORT_ID, CREATE_DATE, CREATOR, RESULT, TYPE, STATUS, MEMO, 
+    CREDIT_LIMIT_MONEY, ALREADY_USE_MONEY, THREE_MONTH_QUERY_COUNT, ONE_MONTH_QUERY_COUNT
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PBCCRC_CUSTOMER_CREDIT
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from T_PBCCRC_CUSTOMER_CREDIT
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zdmoney.credit.framework.domain.TPbccrcCustomerCredit" >
+  	<selectKey keyProperty="id" order="BEFORE" resultType="long">
+         select SEQ_PBCCRC_CUSTOMER_CREDIT.nextval from dual
+    </selectKey>
+    insert into T_PBCCRC_CUSTOMER_CREDIT (ID, REPORT_ID, CREATE_DATE, 
+      CREATOR, RESULT, TYPE, STATUS, MEMO, CREDIT_LIMIT_MONEY, ALREADY_USE_MONEY, THREE_MONTH_QUERY_COUNT, ONE_MONTH_QUERY_COUNT)
+    values (#{id,jdbcType=DECIMAL}, #{reportId,jdbcType=DECIMAL}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, #{type,jdbcType=CHAR}, 
+      #{status,jdbcType=CHAR}, #{memo,jdbcType=VARCHAR},#{creditLimitMoney,jdbcType=DECIMAL}, 
+      #{alreadyUseMoney,jdbcType=DECIMAL}, #{threeMonthQueryCount,jdbcType=DECIMAL}, #{oneMonthQueryCount,jdbcType=DECIMAL})
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdmoney.credit.framework.domain.TPbccrcCustomerCredit" >
+    update T_PBCCRC_CUSTOMER_CREDIT
+    <set >
+      <if test="reportId != null" >
+        REPORT_ID = #{reportId,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        RESULT = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="creditLimitMoney != null" >
+        CREDIT_LIMIT_MONEY = #{creditLimitMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="alreadyUseMoney != null" >
+        ALREADY_USE_MONEY = #{alreadyUseMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="threeMonthQueryCount != null" >
+        THREE_MONTH_QUERY_COUNT = #{threeMonthQueryCount,jdbcType=DECIMAL},
+      </if>
+      <if test="oneMonthQueryCount != null" >
+        ONE_MONTH_QUERY_COUNT = #{oneMonthQueryCount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdmoney.credit.framework.domain.TPbccrcCustomerCredit" >
+    update T_PBCCRC_CUSTOMER_CREDIT
+    set REPORT_ID = #{reportId,jdbcType=DECIMAL},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      RESULT = #{result,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      CREDIT_LIMIT_MONEY = #{creditLimitMoney,jdbcType=DECIMAL},
+      ALREADY_USE_MONEY = #{alreadyUseMoney,jdbcType=DECIMAL},
+      THREE_MONTH_QUERY_COUNT = #{threeMonthQueryCount,jdbcType=DECIMAL},
+      ONE_MONTH_QUERY_COUNT = #{oneMonthQueryCount,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+   <!-- 根据报告id查询 -->
+  <select id="findByReportId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+     select 
+    <include refid="Base_Column_List" />
+     from T_PBCCRC_CUSTOMER_CREDIT
+     where report_id=#{reportId,jdbcType=DECIMAL}
+  </select>
+  
+</mapper>

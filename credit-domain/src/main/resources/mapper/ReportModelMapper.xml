@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdmoney.credit.framework.dao.pub.ReportModelMapper">
+
+	<resultMap id="BaseResultMap"
+		type="com.zdmoney.credit.framework.domain.ReportModel">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="TYPE" property="type" jdbcType="CHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+<!-- 		<result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" /> -->
+<!-- 		<result column="created_by" property="createdBy" jdbcType="VARCHAR" /> -->
+<!-- 	    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" /> -->
+<!-- 	    <result column="last_modified_by" property="lastModifiedBy" jdbcType="VARCHAR" /> -->
+<!-- 	    <result column="last_modified_date" property="lastModifiedDate" jdbcType="TIMESTAMP" /> -->
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, TYPE, NAME, CREATEDATE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from REPORT_MODEL
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from REPORT_MODEL
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.zdmoney.credit.framework.domain.ReportModel">
+		insert into REPORT_MODEL (ID, TYPE, NAME,
+		CREATEDATE)
+		values (#{id,jdbcType=DECIMAL}, #{type,jdbcType=CHAR},
+		#{name,jdbcType=VARCHAR},
+		#{createdate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zdmoney.credit.framework.domain.ReportModel">
+		insert into REPORT_MODEL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="createdate != null">
+				CREATEDATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=CHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="createdate != null">
+				#{createdate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zdmoney.credit.framework.domain.ReportModel">
+		update REPORT_MODEL
+		<set>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=CHAR},
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="createdate != null">
+				CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zdmoney.credit.framework.domain.ReportModel">
+		update REPORT_MODEL
+		set TYPE = #{type,jdbcType=CHAR},
+		NAME = #{name,jdbcType=VARCHAR},
+		CREATEDATE = #{createdate,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+
+	<select id="selectByType" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from REPORT_MODEL
+		where type = #{type,jdbcType=VARCHAR}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from REPORT_MODEL
+	</select>
+</mapper>

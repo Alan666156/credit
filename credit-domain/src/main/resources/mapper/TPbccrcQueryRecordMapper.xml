@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdmoney.credit.framework.dao.pub.TPbccrcQueryRecordMapper">
+  <resultMap id="BaseResultMap" type="com.zdmoney.credit.framework.domain.TPbccrcQueryRecord">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="REPORT_ID" jdbcType="DECIMAL" property="reportId" />
+    <result column="QUERY_DATE" jdbcType="VARCHAR" property="queryDate" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="QUERY_NO" jdbcType="VARCHAR" property="queryNo" />
+    <result column="OPERATOR" jdbcType="VARCHAR" property="operator" />
+    <result column="QUERY_REASON" jdbcType="VARCHAR" property="queryReason" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, REPORT_ID, QUERY_DATE, TYPE, QUERY_NO, OPERATOR, QUERY_REASON
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_PBCCRC_QUERY_RECORD
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from T_PBCCRC_QUERY_RECORD
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zdmoney.credit.framework.domain.TPbccrcQueryRecord">
+  	<selectKey keyProperty="id" order="BEFORE" resultType="long">
+         select <include refid="TABLE_SEQUENCE" /> from dual
+    </selectKey>
+    insert into T_PBCCRC_QUERY_RECORD (ID, REPORT_ID, QUERY_DATE, 
+      TYPE, QUERY_NO, OPERATOR, 
+      QUERY_REASON)
+    values (#{id,jdbcType=DECIMAL}, #{reportId,jdbcType=DECIMAL}, #{queryDate,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{queryNo,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
+      #{queryReason,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdmoney.credit.framework.domain.TPbccrcQueryRecord">
+    insert into T_PBCCRC_QUERY_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="reportId != null">
+        REPORT_ID,
+      </if>
+      <if test="queryDate != null">
+        QUERY_DATE,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="queryNo != null">
+        QUERY_NO,
+      </if>
+      <if test="operator != null">
+        OPERATOR,
+      </if>
+      <if test="queryReason != null">
+        QUERY_REASON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="reportId != null">
+        #{reportId,jdbcType=DECIMAL},
+      </if>
+      <if test="queryDate != null">
+        #{queryDate,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="queryNo != null">
+        #{queryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="queryReason != null">
+        #{queryReason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdmoney.credit.framework.domain.TPbccrcQueryRecord">
+    update T_PBCCRC_QUERY_RECORD
+    <set>
+      <if test="reportId != null">
+        REPORT_ID = #{reportId,jdbcType=DECIMAL},
+      </if>
+      <if test="queryDate != null">
+        QUERY_DATE = #{queryDate,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="queryNo != null">
+        QUERY_NO = #{queryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="queryReason != null">
+        QUERY_REASON = #{queryReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdmoney.credit.framework.domain.TPbccrcQueryRecord">
+    update T_PBCCRC_QUERY_RECORD
+    set REPORT_ID = #{reportId,jdbcType=DECIMAL},
+      QUERY_DATE = #{queryDate,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      QUERY_NO = #{queryNo,jdbcType=VARCHAR},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      QUERY_REASON = #{queryReason,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  <sql id="queryRecordInfoConditions">
+		<where>
+			<if test="reportId != null">
+				AND REPORT_ID = #{reportId,jdbcType=DECIMAL}
+			</if>
+			<if test="type != null and type != ''">
+				AND type= #{type,jdbcType=VARCHAR}
+			</if>
+			<if test="queryReason != null and queryReason != ''">
+				AND QUERY_REASON = #{queryReason}
+			</if>
+			<if test="queryDate != null">
+				<![CDATA[
+					AND months_between(trunc(#{queryDate,jdbcType=TIMESTAMP}),trunc(to_date(QUERY_DATE,'yyyy"年"mm"月"dd"日"')))<=6
+				]]>
+			</if>
+		</where>
+  </sql>
+  
+  <!-- 查询报告信息 -->
+  <select id="findByReportIdAndQueryType" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_PBCCRC_QUERY_RECORD
+    <include refid="queryRecordInfoConditions"/>
+    ORDER BY ID DESC
+  </select>
+  
+  <!-- 个人查询记录次数统计-->
+  <select id="findQueryCountByType" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select count(distinct(t.query_date)) from t_pbccrc_query_record t
+	where t.report_id=#{reportId,jdbcType=DECIMAL}
+	and t.type=2 
+	and t.query_reason not in('特约商户实名审查','保后管理','贷后管理')
+	and to_date(QUERY_DATE,'yyyy"年"mm"月"dd"日"') 
+	BETWEEN trunc(add_months(#{queryTime,jdbcType=TIMESTAMP},#{month,jdbcType=DECIMAL})) AND trunc(#{queryTime,jdbcType=TIMESTAMP})
+  </select>
+  <!-- 机构查询记录次数统计-->
+  <select id="findQueryCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select count(t.query_date) from t_pbccrc_query_record t
+	where t.report_id=#{reportId,jdbcType=DECIMAL} 
+	and t.type=1
+	and t.query_reason not in('特约商户实名审查','保后管理','贷后管理')
+	and to_date(QUERY_DATE,'yyyy"年"mm"月"dd"日"')
+	BETWEEN trunc(add_months(#{queryTime,jdbcType=TIMESTAMP},#{month,jdbcType=DECIMAL})) AND trunc(#{queryTime,jdbcType=TIMESTAMP})
+  </select>
+  <sql id="TABLE_SEQUENCE">SEQ_PBCCRC_QUERY_RECORD.nextval</sql>
+</mapper>

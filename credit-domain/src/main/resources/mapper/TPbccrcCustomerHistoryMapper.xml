@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdmoney.credit.framework.domain.TPbccrcCustomerHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.zdmoney.credit.framework.domain.TPbccrcCustomerHistory" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="REPORT_ID" property="reportId" jdbcType="DECIMAL" />
+    <result column="QUERY_DATE" property="queryDate" jdbcType="TIMESTAMP" />
+    <result column="CUSTOMER_ID_CARD" property="customerIdCard" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_NAME" property="customerName" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="REPORT_STATE" property="reportState" jdbcType="VARCHAR" />
+    <result column="REPORT_STATE_CODE" property="reportStateCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, REPORT_ID, QUERY_DATE, CUSTOMER_ID_CARD, CUSTOMER_NAME, OPERATOR, REPORT_STATE
+  </sql>
+  
+  <sql id="Base_Column_List_For_CustomerIdCard" >
+    ID, REPORT_ID, QUERY_DATE, replace(customer_id_card, substr(customer_id_card,1,length(customer_id_card)-4),'*********') CUSTOMER_ID_CARD, CUSTOMER_NAME, OPERATOR, REPORT_STATE
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PBCCRC_CUSTOMER_HISTORY
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from T_PBCCRC_CUSTOMER_HISTORY
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zdmoney.credit.framework.domain.TPbccrcCustomerHistory" >
+  <selectKey keyProperty="id" order="BEFORE" resultType="long">
+         select <include refid="TABLE_SEQUENCE" /> from dual
+    </selectKey>
+    insert into T_PBCCRC_CUSTOMER_HISTORY (ID, REPORT_ID, QUERY_DATE, 
+      CUSTOMER_ID_CARD, CUSTOMER_NAME, OPERATOR, 
+      REPORT_STATE)
+    values (#{id,jdbcType=DECIMAL}, #{reportId,jdbcType=DECIMAL}, #{queryDate,jdbcType=TIMESTAMP}, 
+      #{customerIdCard,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
+      #{reportState,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdmoney.credit.framework.domain.TPbccrcCustomerHistory" >
+    insert into T_PBCCRC_CUSTOMER_HISTORY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="reportId != null" >
+        REPORT_ID,
+      </if>
+      <if test="queryDate != null" >
+        QUERY_DATE,
+      </if>
+      <if test="customerIdCard != null" >
+        CUSTOMER_ID_CARD,
+      </if>
+      <if test="customerName != null" >
+        CUSTOMER_NAME,
+      </if>
+      <if test="operator != null" >
+        OPERATOR,
+      </if>
+      <if test="reportState != null" >
+        REPORT_STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="reportId != null" >
+        #{reportId,jdbcType=DECIMAL},
+      </if>
+      <if test="queryDate != null" >
+        #{queryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerIdCard != null" >
+        #{customerIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="reportState != null" >
+        #{reportState,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdmoney.credit.framework.domain.TPbccrcCustomerHistory" >
+    update T_PBCCRC_CUSTOMER_HISTORY
+    <set >
+      <if test="reportId != null" >
+        REPORT_ID = #{reportId,jdbcType=DECIMAL},
+      </if>
+      <if test="queryDate != null" >
+        QUERY_DATE = #{queryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerIdCard != null" >
+        CUSTOMER_ID_CARD = #{customerIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="reportState != null" >
+        REPORT_STATE = #{reportState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdmoney.credit.framework.domain.TPbccrcCustomerHistory" >
+    update T_PBCCRC_CUSTOMER_HISTORY
+    set REPORT_ID = #{reportId,jdbcType=DECIMAL},
+      QUERY_DATE = #{queryDate,jdbcType=TIMESTAMP},
+      CUSTOMER_ID_CARD = #{customerIdCard,jdbcType=VARCHAR},
+      CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      REPORT_STATE = #{reportState,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+
+ 
+  <sql id="findListByConditions">
+		<include refid="customerHistorySelective" />
+		<include refid="customerHistoryConditions" />
+ </sql>
+ 
+   <sql id="customerHistorySelective">
+		SELECT
+		<include refid="Base_Column_List_For_CustomerIdCard" />
+		FROM T_PBCCRC_CUSTOMER_HISTORY
+ </sql>
+   <sql id="customerHistoryConditions">
+		<trim prefix="where" prefixOverrides="and">
+			<if test="userCode !=null">
+				AND OPERATOR= #{userCode,jdbcType=VARCHAR}
+			</if>
+			<if test="customerName !=null">
+				AND CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR}
+			</if>
+			<if test="customerIdCard !=null">
+				AND substr(T_PBCCRC_CUSTOMER_HISTORY.CUSTOMER_ID_CARD,-4)= #{customerIdCard,jdbcType=VARCHAR}
+			</if>
+			<if test="operator != null" >
+		        OPERATOR = #{operator,jdbcType=VARCHAR}
+		    </if>
+		</trim>
+ </sql>
+  
+  <sql id="creditConditions">
+    <if test="userCode !=null">
+		AND OPERATOR= #{userCode,jdbcType=VARCHAR}
+	</if>
+	<if test="customerName !=null">
+		AND CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR}
+	</if>
+	<if test="customerIdCard !=null">
+		AND CUSTOMER_NAME = #{customerIdCard,jdbcType=VARCHAR}
+	</if>
+	<if test="queryDate !=null">
+		AND QUERY_DATE = #{queryDate,jdbcType=VARCHAR}
+	</if>
+  </sql>
+  
+  <select id="findListWithPGByMap" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		<include refid="com.ezendai.credit2.mapper.BaseMapper.pagerStart" />
+		<include refid="findListByConditions" />
+		<include refid="com.ezendai.credit2.mapper.BaseMapper.OrderBy" />
+		<include refid="com.ezendai.credit2.mapper.BaseMapper.pagerEnd" />
+ </select>
+ 
+ <select id="findCountByMap" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM (
+		<include refid="findListByConditions" />
+		)
+ </select>
+ <sql id="TABLE_SEQUENCE">SEQ_PBCCRC_CUSTOMER_HISTORY.nextval</sql>
+	
+ <select id="getCustomerHistoryByCustomerNameAndCustomerIdCard" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			 t.ID,
+      		 t.REPORT_ID,
+       		 t.QUERY_DATE,
+       		 t.CUSTOMER_ID_CARD,
+       		 t.CUSTOMER_NAME,
+       		 t.OPERATOR,
+       		 t.REPORT_STATE
+			FROM T_PBCCRC_CUSTOMER_HISTORY t 
+			where 
+			t.query_date = (select max(query_date) from t_pbccrc_customer_history where customer_id_card = #{customerIdCard,jdbcType=VARCHAR})
+            <if test="customerName !=null">
+				AND CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR}
+			</if>
+			<if test="customerIdCard !=null">
+				AND CUSTOMER_ID_CARD = #{customerIdCard,jdbcType=VARCHAR}
+			</if>
+			<if test="operator != null" >
+		        AND OPERATOR = #{operator,jdbcType=VARCHAR}
+		    </if>
+ </select>	
+ <!-- 根据报告id查询 -->
+   <select id="findByReportId" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from t_pbccrc_customer_history
+    where REPORT_ID = #{reportId,jdbcType=DECIMAL}
+  </select>
+  <select id="findAll" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from t_pbccrc_customer_history
+    where 1=1
+    <if test="customerName !=null">
+		AND CUSTOMER_NAME like #{customerName,jdbcType=VARCHAR}
+	</if>
+	<if test="customerIdCard !=null">
+		AND CUSTOMER_ID_CARD like #{customerIdCard,jdbcType=VARCHAR}
+	</if>
+    order by id desc
+  </select>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdmoney.credit.framework.dao.pub.ReportModelValueMapper" >
+  <resultMap id="BaseResultMap" type="com.zdmoney.credit.framework.domain.ReportModelValue" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="REPORT_MODEL_ID" property="reportModelId" jdbcType="DECIMAL" />
+    <result column="VALUE" property="value" jdbcType="VARCHAR" />
+    <result column="VALUE_INDEX" property="valueIndex" jdbcType="VARCHAR" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, REPORT_MODEL_ID, VALUE, VALUE_INDEX, CREATEDATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from REPORT_MODEL_VALUE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from REPORT_MODEL_VALUE
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zdmoney.credit.framework.domain.ReportModelValue" >
+    insert into REPORT_MODEL_VALUE (ID, REPORT_MODEL_ID, VALUE, 
+      VALUE_INDEX, CREATEDATE
+      )
+    values (#{id,jdbcType=DECIMAL}, #{reportModelId,jdbcType=DECIMAL}, #{value,jdbcType=VARCHAR}, 
+      #{valueIndex,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdmoney.credit.framework.domain.ReportModelValue" >
+    insert into REPORT_MODEL_VALUE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="reportModelId != null" >
+        REPORT_MODEL_ID,
+      </if>
+      <if test="value != null" >
+        VALUE,
+      </if>
+      <if test="valueIndex != null" >
+        VALUE_INDEX,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="reportModelId != null" >
+        #{reportModelId,jdbcType=DECIMAL},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="valueIndex != null" >
+        #{valueIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdmoney.credit.framework.domain.ReportModelValue" >
+    update REPORT_MODEL_VALUE
+    <set >
+      <if test="reportModelId != null" >
+        REPORT_MODEL_ID = #{reportModelId,jdbcType=DECIMAL},
+      </if>
+      <if test="value != null" >
+        VALUE = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="valueIndex != null" >
+        VALUE_INDEX = #{valueIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdmoney.credit.framework.domain.ReportModelValue" >
+    update REPORT_MODEL_VALUE
+    set REPORT_MODEL_ID = #{reportModelId,jdbcType=DECIMAL},
+      VALUE = #{value,jdbcType=VARCHAR},
+      VALUE_INDEX = #{valueIndex,jdbcType=VARCHAR},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP}TYPE = #{type,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="selectByReportModelId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from REPORT_MODEL_VALUE
+    where REPORT_MODEL_ID = #{reportModelId,jdbcType=DECIMAL}
+  </select>
+</mapper>

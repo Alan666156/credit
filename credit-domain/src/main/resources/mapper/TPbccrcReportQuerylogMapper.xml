@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdmoney.credit.framework.dao.pub.TPbccrcReportQuerylogMapper" >
+  <resultMap id="BaseResultMap" type="com.zdmoney.credit.framework.domain.TPbccrcReportQuerylog" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="CUSTOMER_NAME" property="customerName" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_ID_CARD" property="customerIdCard" jdbcType="VARCHAR" />
+    <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="REPORT_ID" property="reportId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CUSTOMER_NAME, CUSTOMER_ID_CARD, LAST_UPDATE_TIME, CREATE_TIME, REPORT_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PBCCRC_REPORT_QUERYLOG
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from T_PBCCRC_REPORT_QUERYLOG
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zdmoney.credit.framework.domain.TPbccrcReportQuerylog" >
+  	<selectKey keyProperty="id" order="BEFORE" resultType="long">
+         select <include refid="TABLE_SEQUENCE" /> from dual
+    </selectKey>
+    insert into T_PBCCRC_REPORT_QUERYLOG (ID, CUSTOMER_NAME, CUSTOMER_ID_CARD, 
+      LAST_UPDATE_TIME, CREATE_TIME, REPORT_ID
+      )
+    values (#{id,jdbcType=DECIMAL}, #{customerName,jdbcType=VARCHAR}, #{customerIdCard,jdbcType=VARCHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{reportId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdmoney.credit.framework.domain.TPbccrcReportQuerylog" >
+    insert into T_PBCCRC_REPORT_QUERYLOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="customerName != null" >
+        CUSTOMER_NAME,
+      </if>
+      <if test="customerIdCard != null" >
+        CUSTOMER_ID_CARD,
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="reportId != null" >
+        REPORT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerIdCard != null" >
+        #{customerIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportId != null" >
+        #{reportId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdmoney.credit.framework.domain.TPbccrcReportQuerylog" >
+    update T_PBCCRC_REPORT_QUERYLOG
+    <set >
+      <if test="customerName != null" >
+        CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerIdCard != null" >
+        CUSTOMER_ID_CARD = #{customerIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportId != null" >
+        REPORT_ID = #{reportId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdmoney.credit.framework.domain.TPbccrcReportQuerylog" >
+    update T_PBCCRC_REPORT_QUERYLOG
+    set CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      CUSTOMER_ID_CARD = #{customerIdCard,jdbcType=VARCHAR},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      REPORT_ID = #{reportId,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+   <sql id="TABLE_SEQUENCE">SEQ_PBCCRC_REPORT_QUERYLOG.nextval</sql>
+   
+  <select id="getPbccrcReportQueryLogByCustomerIdCardAndCustomerName" resultMap="BaseResultMap" parameterType="java.util.Map" >
+     select 
+    <include refid="Base_Column_List" />
+     from T_PBCCRC_REPORT_QUERYLOG
+     where 1=1
+	     <if test="customerName != null" >
+	        AND CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR}
+	     </if>
+	     <if test="customerIdCard != null" >
+	        AND CUSTOMER_ID_CARD = #{customerIdCard,jdbcType=VARCHAR}
+	     </if>
+	     <if test="reportId != null" >
+        	AND REPORT_ID = #{reportId,jdbcType=DECIMAL}
+     	 </if>
+	   order by last_update_time desc
+  </select>
+  <!-- 根据报告id查询 -->
+  <select id="findByReportId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+     select 
+    <include refid="Base_Column_List" />
+     from T_PBCCRC_REPORT_QUERYLOG
+     where report_id=#{reportId,jdbcType=DECIMAL}
+  </select>
+  
+  <update id="updateReportQueryLogById" parameterType="java.util.Map">
+		UPDATE T_PBCCRC_REPORT_QUERYLOG
+		SET LAST_UPDATE_TIME=sysdate,REPORT_ID=#{reportId,jdbcType=DECIMAL}
+		WHERE id =#{id,jdbcType=DECIMAL}
+	</update>
+</mapper>
